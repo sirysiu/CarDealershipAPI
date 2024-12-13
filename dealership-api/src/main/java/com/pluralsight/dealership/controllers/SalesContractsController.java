@@ -1,4 +1,4 @@
-package com.pluralsight.car.controllers;
+package com.pluralsight.dealership.controllers;
 
 public class SalesContractsController {
 }

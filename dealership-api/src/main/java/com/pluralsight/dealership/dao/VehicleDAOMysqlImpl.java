@@ -2,7 +2,9 @@ package com.pluralsight.dealership.dao;
 
 import com.pluralsight.dealership.models.Vehicle;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,10 +12,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VehicleDAOMysqlImpl implements VehicleDao {
-    private final BasicDataSource dataSource;
 
-    public VehicleDAOMysqlImpl(BasicDataSource dataSource) {
+@Component
+public class VehicleDAOMysqlImpl implements VehicleDao {
+    private final DataSource dataSource;
+
+    public VehicleDAOMysqlImpl(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -51,11 +55,11 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
                 price = rs.getDouble("price");
                 vin = rs.getInt("vin");
                 type = rs.getString("type");
-                sold = rs.getBoolean("sold");
+               // sold = rs.getBoolean("sold");
 
 
                 // Create a new Vehicle object and add it to the list
-                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price, sold);
+                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
                 vehicles.add(vehicle);
             }
 
@@ -104,7 +108,7 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
                 type = rs.getString("type");
                 sold = rs.getBoolean("sold");
                 // Create a new Vehicle object and add it to the list
-                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price, sold);
+                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
                 vehicles.add(vehicle);
             }
 
@@ -153,7 +157,7 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
                 sold = rs.getBoolean("sold");
 
                 // Create a new Vehicle object and add it to the list
-                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price, sold);
+                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
                 vehicles.add(vehicle);
             }
 
@@ -188,7 +192,7 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
                 Boolean sold = rs.getBoolean("sold");
 
 
-                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price, sold);
+                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
                 vehicles.add(vehicle);  // Add the vehicle to the list
             }
         } catch (SQLException e) {
@@ -221,7 +225,7 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
                 boolean sold = rs.getBoolean("sold");
 
                 // Create a new Vehicle object and add it to the list
-                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price, sold);
+                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
                 vehicles.add(vehicle);
             }
         } catch (SQLException e) {
@@ -260,7 +264,7 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
                 boolean sold = rs.getBoolean("sold");
 
                 // Create a new Vehicle object and add it to the list
-                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price, sold);
+                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
                 vehicles.add(vehicle);
             }
         } catch (SQLException e) {
@@ -298,7 +302,7 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
                 type = rs.getString("type");
                 sold = rs.getBoolean("sold");
 
-                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price, sold);
+                Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
                 vehicles.add(vehicle);
 
             }

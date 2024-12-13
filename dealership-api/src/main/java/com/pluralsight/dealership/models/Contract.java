@@ -1,6 +1,7 @@
 package com.pluralsight.dealership.models;
 
 public abstract class Contract {
+    private int vin;
     protected String date;
     protected String customerName;
     protected String customerEmail;
@@ -9,7 +10,7 @@ public abstract class Contract {
     double monthlyPayment;
 
 
-    public Contract(String date, String customerName, String customerEmail, Vehicle vehicleSold) {
+    public Contract(String date, String customerName, String customerEmail) {
         this.date = date;
         this.customerName = customerName;
         this.customerEmail = customerEmail;

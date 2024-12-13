@@ -1,10 +1,8 @@
 package com.pluralsight.dealership;
 
+import com.pluralsight.dealership.dao.SalesContractDaoMysql;
 import com.pluralsight.dealership.dao.VehicleDAOMysqlImpl;
-import com.pluralsight.dealership.models.Contract;
-import com.pluralsight.dealership.models.Dealership;
-import com.pluralsight.dealership.models.LeaseContract;
-import com.pluralsight.dealership.models.Vehicle;
+import com.pluralsight.dealership.models.*;
 import com.pluralsight.dealership.styles.ColorCodes;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -170,7 +168,6 @@ public class UserInterface {
     displayVehicles(new ArrayList<>(vehicles));
 
     // Print the make and model of each vehicle
-    vehicles.forEach(vehicle -> System.out.println(vehicle.getMake() + " " + vehicle.getModel()));
   }
   private void processGetByMakeModelRequest() {
     // Prompt user for make and model
@@ -292,7 +289,7 @@ public class UserInterface {
     boolean sold = Boolean.parseBoolean(scanner.nextLine().trim());
 
     // Create a new Vehicle object using the input values
-    Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price, sold);
+    Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
 
     // Add the vehicle to the database
     vehicleDAOMysql.addVehicle(vehicle);
@@ -334,6 +331,38 @@ public class UserInterface {
 
 
   public void processSellOrLeaseVehicleRequest() {
+    // Configure the BasicDataSource with the correct DB connection info
+
+    // Create an instance of VehicleDAOMysqlImpl with the configured data source
+    SalesContractDaoMysql salesContractDaoMysql = new SalesContractDaoMysql(dataSource);
+
+    // Retrieve all vehicles from the database
+    List<SalesContract> sc = salesContractDaoMysql.findAllSalesContracts();
+
+    // Convert List to ArrayList before passing to displayVehicles
+    System.out.println(new ArrayList<>(sc));
+
+    // Print the make and model of each vehicle
+
+//    System.out.println("Enter Name: ");
+//    String customerName = scanner.nextLine();
+//
+//    System.out.println("Enter Email: ");
+//    String email = scanner.nextLine();
+//
+//    System.out.println("Lease or Sale? ");
+//    String customerContract = scanner.nextLine();
+//
+//    System.out.println("Enter the Vin number of vehicle: ");
+//    int vin = scanner.nextInt();
+//    scanner.nextLine();
+//
+//    LocalDate date = LocalDate.now();
+//
+//    if (!customerContract.equalsIgnoreCase("lease") && !customerContract.equalsIgnoreCase("sale")) {
+//      System.out.println("Invalid option. Please enter 'lease' or 'sale'.");
+//      return;
+
 
   }
 

@@ -1,5 +1,7 @@
 package com.pluralsight.dealership.models;
 
+import com.pluralsight.dealership.styles.ColorCodes;
+
 public class SalesContract extends Contract {
     private double salesTaxAmount;
     private double recordingFee;
@@ -41,25 +43,25 @@ public class SalesContract extends Contract {
     }
 
 
-    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicleSold , boolean isFinancing) {
-        super(date, customerName, customerEmail, vehicleSold);
+    public SalesContract(String date, String customerName, String customerEmail , boolean isFinancing) {
+        super(date, customerName, customerEmail);
         this.monthlyPayment = monthlyPayment;
         this.processingFee = processingFee;
         this.recordingFee = 100;
-        this.salesTaxAmount = 0.05 * vehicleSold.getPrice();
-        if (vehicleSold.getPrice() < 10000) {
-            processingFee = 295;
-        } else {
-            processingFee = 295;
-        }
-        this.isFinancing = isFinancing;
-        if (isFinancing && vehicleSold.getPrice() >= 10000) {
-            double i = 0.425/12;
-            int month = 48;
-            monthlyPayment = (getTotalPrice() * 0.0425) / 12;
-        } else if (isFinancing && vehicleSold.getPrice() < 10000){
-            monthlyPayment = getTotalPrice() * Math.pow((1 + (0.0525/12)), 24) - getTotalPrice();
-        }
+//        this.salesTaxAmount = 0.05 * vehicleSold.getPrice();
+//        if (vehicleSold.getPrice() < 10000) {
+//            processingFee = 295;
+//        } else {
+//            processingFee = 295;
+//        }
+//        this.isFinancing = isFinancing;
+//        if (isFinancing && vehicleSold.getPrice() >= 10000) {
+//            double i = 0.425/12;
+//            int month = 48;
+//            monthlyPayment = (getTotalPrice() * 0.0425) / 12;
+//        } else if (isFinancing && vehicleSold.getPrice() < 10000){
+//            monthlyPayment = getTotalPrice() * Math.pow((1 + (0.0525/12)), 24) - getTotalPrice();
+//        }
     }
     public Vehicle getVehicleSold() {
         return vehicleSold;
@@ -81,12 +83,11 @@ public class SalesContract extends Contract {
                 "salesTaxAmount=" + salesTaxAmount +
                 ", recordingFee=" + recordingFee +
                 ", processingFee=" + processingFee +
-                ", finance=" + isFinancing +
+                ", isFinancing=" + isFinancing +
                 ", monthlyPayment=" + monthlyPayment +
                 ", date='" + date + '\'' +
                 ", customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
-                ", vehicleSold=" + vehicleSold +
                 ", totalPrice=" + totalPrice +
                 ", monthlyPayment=" + monthlyPayment +
                 '}';
