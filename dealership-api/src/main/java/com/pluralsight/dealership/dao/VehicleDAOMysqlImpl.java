@@ -78,13 +78,13 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
         List<Vehicle> vehicles = new ArrayList<>();
         String color, type;
         int year, mileage, vin;
-        boolean sold;
+      //  boolean sold;
         double price;
 
         try (Connection connection = dataSource.getConnection()) {
             // SQL query to find vehicles by make and model
             PreparedStatement findVehiclesByMakeModel = connection.prepareStatement("""
-                    SELECT make, model, year, color, mileage, price, vin
+                    SELECT make, model, year, color, mileage, price, vin, type
                     FROM vehicles
                     WHERE make = ? AND model = ?
                     ORDER BY price;
@@ -101,12 +101,12 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
                 make = rs.getString("make");
                 model = rs.getString("model");
                 year = rs.getInt("year");
+                type = rs.getString("type");
                 color = rs.getString("color");
                 mileage = rs.getInt("mileage");
                 price = rs.getDouble("price");
                 vin = rs.getInt("vin");
-                type = rs.getString("type");
-                sold = rs.getBoolean("sold");
+               // sold = rs.getBoolean("sold");
                 // Create a new Vehicle object and add it to the list
                 Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
                 vehicles.add(vehicle);
@@ -126,7 +126,7 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
         String make, model, color, type;
         int mileage, vin;
         double price;
-        boolean sold;
+       // boolean sold;
 
         try (Connection connection = dataSource.getConnection()) {
             // SQL query to get vehicles based on the year
@@ -154,7 +154,7 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
                 price = rs.getDouble("price");
                 vin = rs.getInt("vin");
                 type = rs.getString("type");
-                sold = rs.getBoolean("sold");
+                //sold = rs.getBoolean("sold");
 
                 // Create a new Vehicle object and add it to the list
                 Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
@@ -315,6 +315,44 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
     }
 
     @Override
+    public List<Vehicle> findVehicleByVin(int vin) {
+        List<Vehicle> vehicles = new ArrayList<>();
+
+        String query = "SELECT vin, make, model, year, color, mileage, price, type FROM vehicles WHERE vin = ?";
+
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, vin);  // Set the VIN parameter in the query.
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                // Retrieve the values from the ResultSet.
+                int year = rs.getInt("year");
+                String make = rs.getString("make");
+                String model = rs.getString("model");
+                String color = rs.getString("color");
+                int mileage = rs.getInt("mileage");
+                double price = rs.getDouble("price");
+                String type = rs.getString("type");
+                //boolean sold = rs.getBoolean("sold");
+
+                // Create the Vehicle object using the data retrieved from the ResultSet.
+             Vehicle vehicle = new Vehicle(vin, year, make, model, type, color, mileage, price);
+                vehicles.add(vehicle);
+
+            }
+
+        } catch (SQLException e) {
+            // Log the exception and rethrow it as a RuntimeException for now
+            throw new RuntimeException("Error retrieving vehicle by VIN: " + vin, e);
+        }
+
+        return vehicles;  // Return the vehicle object, or null if not found.
+    }
+
+
+    @Override
     public boolean removeVehicle(int vin) {
         String query = "DELETE FROM vehicles WHERE vin = ?";  // SQL query to delete the vehicle
 
@@ -357,5 +395,34 @@ public class VehicleDAOMysqlImpl implements VehicleDao {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void updateVehicle(Vehicle vehicle) {
+
+        String query = """
+        UPDATE vehicles
+        SET make = ?, model = ?, year = ?, color = ?, mileage = ?, price = ?, type = ?
+        WHERE vin = ?
+    """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setString(1, vehicle.getMake());
+            ps.setString(2, vehicle.getModel());
+            ps.setInt(3, vehicle.getYear());
+            ps.setString(4, vehicle.getColor());
+            ps.setInt(5, vehicle.getMileage());
+            ps.setDouble(6, vehicle.getPrice());
+            ps.setString(7, vehicle.getType());
+          //  ps.setBoolean(8, vehicle.isSold());
+            ps.setInt(8, vehicle.getVin());
+
+            ps.executeUpdate();  // Execute the update statement
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating vehicle with VIN: " + vehicle.getVin(), e);
+        }
+    }
+
 
 }

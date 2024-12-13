@@ -3,7 +3,9 @@ package com.pluralsight.dealership.controllers;
 import com.pluralsight.dealership.dao.VehicleDAOMysqlImpl;
 import com.pluralsight.dealership.models.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -67,8 +69,10 @@ public class VehiclesController {
 
     // Endpoint to add a new vehicle
     @PostMapping("/add")
-    public void addVehicle(@RequestBody Vehicle vehicle) {
+    @ResponseStatus(code= HttpStatus.CREATED)
+    public Vehicle addVehicle(@RequestBody Vehicle vehicle) {
         vehicleDao.addVehicle(vehicle);
+        return vehicle;
     }
 
     // Endpoint to remove a vehicle by VIN
@@ -77,4 +81,39 @@ public class VehiclesController {
         return vehicleDao.removeVehicle(vin);
     }
 
-}
+        // PUT endpoint to update an existing vehicle
+        @PutMapping("/update/{vin}")
+        @ResponseStatus(code = HttpStatus.OK)
+        public Vehicle updateVehicle(@PathVariable int vin, @RequestBody Vehicle updatedVehicle) {
+            // Attempt to find the vehicle by VIN and update it
+            List<Vehicle> existingVehicles = vehicleDao.findVehicleByVin(vin);
+
+            if (existingVehicles == null) {
+                // If vehicle is not found, return a 404 (Not Found) response
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehicle not found with VIN: " + vin);
+            }
+            Vehicle existingVehicle = existingVehicles.get(0);  // This gets the first (and likely only) vehicle
+
+
+            // Update the existing vehicle with the new data
+            existingVehicle.setMake(updatedVehicle.getMake());
+            existingVehicle.setModel(updatedVehicle.getModel());
+            existingVehicle.setYear(updatedVehicle.getYear());
+            existingVehicle.setColor(updatedVehicle.getColor());
+            existingVehicle.setMileage(updatedVehicle.getMileage());
+            existingVehicle.setPrice(updatedVehicle.getPrice());
+            existingVehicle.setType(updatedVehicle.getType());
+            //existingVehicle.setSold(updatedVehicle.isSold());
+
+            // Call the DAO to save the updated vehicle
+            vehicleDao.updateVehicle(existingVehicle);
+
+            // Return the updated vehicle
+            return existingVehicle;
+        }
+
+
+    }
+
+
+

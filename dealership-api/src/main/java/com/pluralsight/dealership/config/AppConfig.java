@@ -21,7 +21,7 @@ public class AppConfig {
     @Bean
     public BasicDataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl(url);
+        dataSource.setUrl(url); // values from application properties
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         return dataSource;

@@ -47,4 +47,9 @@ public class SalesContractDaoMysql implements SalesDao{
 
         return sc;
     }
+
+    @Override
+    public List<SalesContract> findSalesContractById() {
+        return List.of();
+    }
 }

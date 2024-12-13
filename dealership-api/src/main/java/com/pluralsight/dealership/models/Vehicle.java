@@ -63,6 +63,34 @@ public class Vehicle {
         return mileage;
     }
 
+    public void setVin(int vin) {
+        this.vin = vin;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
+    }
+
     public String getColor() {
         return color;
     }
