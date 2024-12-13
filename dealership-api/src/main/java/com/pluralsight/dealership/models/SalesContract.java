@@ -63,14 +63,14 @@ public class SalesContract extends Contract {
 //            monthlyPayment = getTotalPrice() * Math.pow((1 + (0.0525/12)), 24) - getTotalPrice();
 //        }
     }
-    public Vehicle getVehicleSold() {
-        return vehicleSold;
-    }
+//    public Vehicle vehiclePrice() {
+//        return vehiclePrice();
+//    }
 
-    @Override
-    public double getTotalPrice() {
-        return vehicleSold.getPrice() + recordingFee + processingFee + salesTaxAmount;
-    }
+//    @Override
+//    public double getTotalPrice(Vehicle vehiclePrice) {
+//        return vehiclePrice().getPrice() + recordingFee + processingFee + salesTaxAmount;
+//    }
 
     @Override
     public double getMonthlyPayment() {
@@ -91,5 +91,10 @@ public class SalesContract extends Contract {
                 ", totalPrice=" + totalPrice +
                 ", monthlyPayment=" + monthlyPayment +
                 '}';
+    }
+
+    @Override
+    public double getTotalPrice() {
+        return 0;
     }
 }

@@ -15,10 +15,10 @@ public class LeaseContract extends Contract {
         return leaseFee;
     }
 
-    public LeaseContract(String date, String customerName, String customerEmail, Vehicle vehicleSold) {
+    public LeaseContract(String date, String customerName, String customerEmail) {
         super(date, customerName, customerEmail);
-        this.expectedEndingValue = vehicleSold.getPrice() / 2;
-        this.leaseFee = vehicleSold.getPrice() * 0.07;
+//        this.expectedEndingValue = vehicleSold.getPrice() / 2;
+//        this.leaseFee = vehicleSold.getPrice() * 0.07;
     }
 
     @Override
@@ -35,6 +35,11 @@ public class LeaseContract extends Contract {
                 '}';
     }
 
+    @Override
+    public double getTotalPrice() {
+        return 0;
+    }
+
     public double getExpectedEndingValue() {
         return expectedEndingValue;
     }
@@ -43,13 +48,13 @@ public class LeaseContract extends Contract {
         this.expectedEndingValue = expectedEndingValue;
     }
 
-    public Vehicle getVehicleSold() {
-        return vehicleSold;
-    }
-    @Override
-    public double getTotalPrice() {
-        return expectedEndingValue + leaseFee;
-    }
+//    public Vehicle getVehicleSold() {
+//        return vehicleSold;
+//    }
+//    @Override
+//    public double getTotalPrice() {
+//        return expectedEndingValue + leaseFee;
+//    }
 
     @Override
     public double getMonthlyPayment() {

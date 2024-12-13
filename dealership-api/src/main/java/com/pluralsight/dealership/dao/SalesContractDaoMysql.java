@@ -3,6 +3,7 @@ package com.pluralsight.dealership.dao;
 import com.pluralsight.dealership.models.SalesContract;
 import com.pluralsight.dealership.models.Vehicle;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class SalesContractDaoMysql implements SalesDao{
 
     private final BasicDataSource dataSource;
