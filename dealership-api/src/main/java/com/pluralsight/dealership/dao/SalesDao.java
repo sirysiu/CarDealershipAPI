@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface SalesDao {
     List<SalesContract> findAllSalesContracts();
-    List<SalesContract> findSalesContractById();
 
+    List<SalesContract>  findSalesContractByVin(int vin);
+
+    // Insert a new sales contract
+    void insertSalesContract(SalesContract salesContract);
 }
 

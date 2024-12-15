@@ -1,100 +1,118 @@
 package com.pluralsight.dealership.models;
 
-import com.pluralsight.dealership.styles.ColorCodes;
+public class SalesContract {
 
-public class SalesContract extends Contract {
-    private double salesTaxAmount;
-    private double recordingFee;
-    private  double processingFee;
-    private boolean isFinancing;
+    private int vin;
+    private String contractDate;
+    private String customerName;
+    private String customerEmail;
+    private double totalPrice;
     private double monthlyPayment;
+    private double salesTaxes;
+    private double recordingFees;
+    private boolean isFinancing;
 
-    public boolean isFinancing() {
-        return isFinancing;
+    // Constructor
+    public SalesContract(int vin, String contractDate, String customerName, String customerEmail,
+                         double totalPrice, double monthlyPayment, double salesTaxes, double recordingFees,
+                         boolean isFinancing) {
+        this.vin = vin;
+        this.contractDate = contractDate;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.totalPrice = totalPrice;
+        this.monthlyPayment = monthlyPayment;
+        this.salesTaxes = salesTaxes;
+        this.recordingFees = recordingFees;
+        this.isFinancing = isFinancing;
     }
 
-    public double getSalesTaxAmount() {
-        return salesTaxAmount ;
-     }
-
-    public void setSalesTaxAmount(double salesTaxAmount) {
-        this.salesTaxAmount = salesTaxAmount;
+    // Getters and Setters
+    public int getVin() {
+        return vin;
     }
 
-    public double getRecordingFee() {
-        return recordingFee;
+    public void setVin(int vin) {
+        this.vin = vin;
     }
 
-    public void setRecordingFee(double recordingFee) {
-        this.recordingFee = recordingFee;
+    public String getContractDate() {
+        return contractDate;
     }
 
-    public double getProcessingFee() {
-        return processingFee;
+    public void setContractDate(String contractDate) {
+        this.contractDate = contractDate;
     }
 
-    public void setProcessingFee(double processingFee) {
-        this.processingFee = processingFee;
+    public String getCustomerName() {
+        return customerName;
     }
 
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public double getMonthlyPayment() {
+        return monthlyPayment;
+    }
 
     public void setMonthlyPayment(double monthlyPayment) {
         this.monthlyPayment = monthlyPayment;
     }
 
-
-    public SalesContract(String date, String customerName, String customerEmail , boolean isFinancing) {
-        super(date, customerName, customerEmail);
-        this.monthlyPayment = monthlyPayment;
-        this.processingFee = processingFee;
-        this.recordingFee = 100;
-//        this.salesTaxAmount = 0.05 * vehicleSold.getPrice();
-//        if (vehicleSold.getPrice() < 10000) {
-//            processingFee = 295;
-//        } else {
-//            processingFee = 295;
-//        }
-//        this.isFinancing = isFinancing;
-//        if (isFinancing && vehicleSold.getPrice() >= 10000) {
-//            double i = 0.425/12;
-//            int month = 48;
-//            monthlyPayment = (getTotalPrice() * 0.0425) / 12;
-//        } else if (isFinancing && vehicleSold.getPrice() < 10000){
-//            monthlyPayment = getTotalPrice() * Math.pow((1 + (0.0525/12)), 24) - getTotalPrice();
-//        }
-    }
-//    public Vehicle vehiclePrice() {
-//        return vehiclePrice();
-//    }
-
-//    @Override
-//    public double getTotalPrice(Vehicle vehiclePrice) {
-//        return vehiclePrice().getPrice() + recordingFee + processingFee + salesTaxAmount;
-//    }
-
-    @Override
-    public double getMonthlyPayment() {
-     return Math.floor(monthlyPayment * 100) /100;
+    public double getSalesTaxes() {
+        return salesTaxes;
     }
 
+    public void setSalesTaxes(double salesTaxes) {
+        this.salesTaxes = salesTaxes;
+    }
+
+    public double getRecordingFees() {
+        return recordingFees;
+    }
+
+    public void setRecordingFees(double recordingFees) {
+        this.recordingFees = recordingFees;
+    }
+
+    public boolean isFinancing() {
+        return isFinancing;
+    }
+
+    public void setFinancing(boolean financing) {
+        isFinancing = financing;
+    }
+
+    // toString method for better logging and debugging
     @Override
     public String toString() {
         return "SalesContract{" +
-                "salesTaxAmount=" + salesTaxAmount +
-                ", recordingFee=" + recordingFee +
-                ", processingFee=" + processingFee +
-                ", isFinancing=" + isFinancing +
-                ", monthlyPayment=" + monthlyPayment +
-                ", date='" + date + '\'' +
+                "vin=" + vin +
+                ", contractDate='" + contractDate + '\'' +
                 ", customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
                 ", totalPrice=" + totalPrice +
                 ", monthlyPayment=" + monthlyPayment +
+                ", salesTaxes=" + salesTaxes +
+                ", recordingFees=" + recordingFees +
+                ", isFinancing=" + isFinancing +
                 '}';
-    }
-
-    @Override
-    public double getTotalPrice() {
-        return 0;
     }
 }
