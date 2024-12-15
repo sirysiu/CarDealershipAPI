@@ -1,64 +1,59 @@
 package com.pluralsight.dealership.models;
 
-public class LeaseContract extends Contract {
-    private double expectedEndingValue;
-    private double leaseFee;
+public class LeaseContract {
 
-    public boolean isFinancing() {
-        return isFinancing;
+    private int vin;
+    private String contractDate;  // Start date of the lease
+    private String customerName;
+    private String customerEmail;
+
+    // Constructor
+    public LeaseContract(String contractDate, String customerName, String customerEmail) {
+        this.contractDate = contractDate;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
     }
 
-    private boolean isFinancing;  // Add a field to track financing status
-
-
-    public double getLeaseFee() {
-        return leaseFee;
+    // Getters and Setters
+    public int getVin() {
+        return vin;
     }
 
-    public LeaseContract(String date, String customerName, String customerEmail) {
-        super(date, customerName, customerEmail);
-//        this.expectedEndingValue = vehicleSold.getPrice() / 2;
-//        this.leaseFee = vehicleSold.getPrice() * 0.07;
+    public void setVin(int vin) {
+        this.vin = vin;
+    }
+
+    public String getContractDate() {
+        return contractDate;
+    }
+
+    public void setContractDate(String contractDate) {
+        this.contractDate = contractDate;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
     @Override
     public String toString() {
         return "LeaseContract{" +
-                "expectedEndingValue=" + expectedEndingValue +
-                ", leaseFee=" + leaseFee +
-                ", date='" + date + '\'' +
+                "vin=" + vin +
+                ", contractDate='" + contractDate + '\'' +
                 ", customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
-                ", vehicleSold=" + vehicleSold +
-                ", totalPrice=" + totalPrice +
-                ", monthlyPayment=" + monthlyPayment +
                 '}';
     }
-
-    @Override
-    public double getTotalPrice() {
-        return 0;
-    }
-
-    public double getExpectedEndingValue() {
-        return expectedEndingValue;
-    }
-
-    public void setExpectedEndingValue(double expectedEndingValue) {
-        this.expectedEndingValue = expectedEndingValue;
-    }
-
-//    public Vehicle getVehicleSold() {
-//        return vehicleSold;
-//    }
-//    @Override
-//    public double getTotalPrice() {
-//        return expectedEndingValue + leaseFee;
-//    }
-
-    @Override
-    public double getMonthlyPayment() {
-        return expectedEndingValue * Math.pow((1 + (0.04 / 12)), 36) - expectedEndingValue;
-    }
-
 }
